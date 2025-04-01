@@ -1,0 +1,16 @@
+local teleportPosition = Vector3.new(-67.802734375, 34.748931884765625, 905.5962524414062)
+local player = game.Players.LocalPlayer
+
+local function onCharacterAdded(character)
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    if humanoidRootPart then
+        humanoidRootPart.CFrame = CFrame.new(teleportPosition)
+    end
+end
+
+player.CharacterAdded:Connect(onCharacterAdded)
+
+-- If the character already exists (for some reason)
+if player.Character then
+    onCharacterAdded(player.Character)
+end
