@@ -1,16 +1,20 @@
 local teleportPosition = Vector3.new(-67.802734375, 34.748931884765625, 905.5962524414062)
 local player = game.Players.LocalPlayer
+local hasTeleported = false -- Variable to check if teleportation has already happened
 
 local function onCharacterAdded(character)
-    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-    if humanoidRootPart then
-        humanoidRootPart.CFrame = CFrame.new(teleportPosition)
+    if not hasTeleported then
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        if humanoidRootPart then
+            humanoidRootPart.CFrame = CFrame.new(teleportPosition)
+        end
+        hasTeleported = true -- Set to true so it doesn't happen again
     end
 end
 
 player.CharacterAdded:Connect(onCharacterAdded)
 
--- If the character already exists (for some reason)
+-- If the character already exists (just in case)
 if player.Character then
     onCharacterAdded(player.Character)
 end
